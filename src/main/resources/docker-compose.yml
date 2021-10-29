@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   postgres:
-    image: postgres
+    build: .
     container_name: pg
     environment:
       POSTGRES_USER: docker
