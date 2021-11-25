@@ -11,7 +11,7 @@ CREATE SCHEMA craftbeer
 ## Segundo passo
 
 ```postgresql
-CREATE TABLE craftbeers.beers
+CREATE TABLE craftbeer.beers
 (
     id UUID NOT NULL DEFAULT gen_random_uuid(),
     name VARCHAR NOT NULL,
@@ -20,9 +20,9 @@ CREATE TABLE craftbeers.beers
 );
 
 CREATE UNIQUE INDEX beers_id_uindex
-ON craftbeers.beers (id);
+ON craftbeer.beers (id);
 
-ALTER TABLE craftbeers.beers
+ALTER TABLE craftbeer.beers
 ADD CONSTRAINT beers_pk
 PRIMARY KEY (id);
 ```
