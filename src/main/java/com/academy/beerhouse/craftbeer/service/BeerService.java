@@ -5,6 +5,9 @@ import com.academy.beerhouse.craftbeer.repository.BeerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -13,5 +16,9 @@ public class BeerService {
 
     public Flux<Beer> findAll() {
         return beerRepository.findAll();
+    }
+
+    public Mono<Beer> findOne(UUID id) {
+        return beerRepository.findById(id);
     }
 }
