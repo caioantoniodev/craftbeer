@@ -1,5 +1,10 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/postgres?schema=craftbeers
+    url: r2dbc:postgresql://localhost:5432/postgres?schema=craftbeer
     username: docker
     password: docker
+logging:
+  level:
+    org:
+      springframework:
+          r2dbc: DEBUG
