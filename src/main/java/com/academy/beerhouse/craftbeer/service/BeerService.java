@@ -31,4 +31,10 @@ public class BeerService {
     private <T> Mono<T> monoResponseStatusNotFoundException() {
         return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Beer not found"));
     }
+
+    public Mono<Beer> createOne(Beer beer) {
+        var create = beerRepository.save(beer);
+
+        return create;
+    }
 }
