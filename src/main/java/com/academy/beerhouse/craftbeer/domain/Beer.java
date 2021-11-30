@@ -32,6 +32,6 @@ public class Beer {
     private Integer alcoholContent;
 
     @NotNull
-    @DecimalMin(value = "0.0")
+    @DecimalMin(value = "1.0")
     private BigDecimal price;
 }
