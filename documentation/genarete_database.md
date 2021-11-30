@@ -15,7 +15,7 @@ CREATE TABLE craftbeer.beers
 (
     id UUID NOT NULL DEFAULT gen_random_uuid(),
     name VARCHAR NOT NULL,
-    alchool_content INTEGER NOT NULL,
+    alcohol_content INTEGER NOT NULL,
     price DECIMAL NOT NULL
 );
 
