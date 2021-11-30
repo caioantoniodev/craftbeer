@@ -24,7 +24,11 @@ public class BeerService {
 
     public Mono<Beer> findOne(UUID id) {
         return beerRepository.findById(id)
-                .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Beer not found")))
+                .switchIfEmpty(monoResponseStatusNotFoundException())
                 .log();
+    }
+
+    private <T> Mono<T> monoResponseStatusNotFoundException() {
+        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Beer not found"));
     }
 }
