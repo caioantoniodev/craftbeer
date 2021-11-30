@@ -29,7 +29,6 @@ public class Beer {
     private String name;
 
     @NotNull
-    @NotBlank()
     private Integer alcoholContent;
 
     @NotNull
