@@ -10,8 +10,7 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,6 +33,12 @@ public class BeerController {
     @ResponseStatus(NO_CONTENT)
     public Mono<Void> updateOne(@PathVariable Integer id, @Valid @RequestBody Beer beer) {
         return beerService.updateOne(beer.withId(id));
+    }
+
+    @DeleteMapping(path = "{id}")
+    @ResponseStatus(OK)
+    public Mono<Void> deleteOne(@PathVariable Integer id) {
+        return beerService.deleteOne(id);
     }
 
     @PostMapping
