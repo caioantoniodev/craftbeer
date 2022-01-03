@@ -42,7 +42,6 @@ public class BeerService {
 
     public Mono<Void> deleteOne(Integer id) {
         return findOne(id)
-                .flatMap(beerRepository::delete)
-                .then();
+                .flatMap(beerRepository::delete);
     }
 }
