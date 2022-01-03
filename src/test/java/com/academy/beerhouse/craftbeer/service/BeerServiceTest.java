@@ -53,7 +53,7 @@ class BeerServiceTest {
     }
 
     @Test
-    public void blockHoundWorks() {
+    void blockHoundWorks() {
         try {
             var task = new FutureTask<>(() -> {
                 sleep(0);
@@ -70,7 +70,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("findAll returns a flux of beer")
-    public void shouldReturnsFluxOfBeerWhenSuccessfull() {
+    void shouldReturnsFluxOfBeerWhenSuccessfull() {
         StepVerifier.create(beerService.findAll())
                 .expectSubscription()
                 .expectNext(beer)
@@ -79,7 +79,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("findOne returns mono with beer when it exists")
-    public void shouldReturnMonoOfBeerWhenSuccessfull() {
+    void shouldReturnMonoOfBeerWhenSuccessfull() {
         StepVerifier.create(beerService.findOne(1))
                 .expectSubscription()
                 .expectNext(beer)
@@ -88,7 +88,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("findOne returns mono error when beer when not exist")
-    public void shouldReturnMonoErrorWhenEmptyMonoIsReturned() {
+    void shouldReturnMonoErrorWhenEmptyMonoIsReturned() {
         BDDMockito.when(beerRepository.findById(anyInt()))
                 .thenReturn(Mono.empty());
 
