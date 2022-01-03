@@ -22,7 +22,7 @@ public class BeerService {
         return beerRepository.findAll();
     }
 
-    public Mono<Beer> findOne(UUID id) {
+    public Mono<Beer> findOne(Integer id) {
         return beerRepository.findById(id)
                 .switchIfEmpty(monoResponseStatusNotFoundException())
                 .log();

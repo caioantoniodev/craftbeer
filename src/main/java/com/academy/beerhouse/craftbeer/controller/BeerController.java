@@ -27,7 +27,7 @@ public class BeerController {
     }
 
     @GetMapping(path = "{id}")
-    public Mono<Beer> findOne(@PathVariable UUID id) {
+    public Mono<Beer> findOne(@PathVariable Integer id) {
         return beerService.findOne(id);
     }
 

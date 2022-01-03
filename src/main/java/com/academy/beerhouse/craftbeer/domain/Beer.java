@@ -22,14 +22,22 @@ import java.util.UUID;
 @JsonNaming(SnakeCaseStrategy.class)
 public class Beer {
     @Id
-    private UUID id;
+    private Integer id;
 
     @NotNull
     @NotBlank(message = "The name of this beer cannot be empty")
     private String name;
 
     @NotNull
-    private Integer alcoholContent;
+    @NotBlank(message = "The description of this beer cannot be empty")
+    private String description;
+
+    @NotNull
+    private Double alcohol_by_volume;
+
+    @NotNull
+    @NotBlank(message = "The type of this beer cannot be empty")
+    private String type;
 
     @NotNull
     @DecimalMin(value = "1.0")
