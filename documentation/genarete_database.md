@@ -2,21 +2,20 @@
 
 ## Primeiro passo
 ```postgresql
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
-```
-
-```postgresql
 CREATE SCHEMA craftbeer
 ```
+
 ## Segundo passo
 
 ```postgresql
 CREATE TABLE craftbeer.beers
 (
-    id UUID NOT NULL DEFAULT gen_random_uuid(),
-    name VARCHAR NOT NULL,
-    alcohol_content INTEGER NOT NULL,
-    price DECIMAL NOT NULL
+	id SERIAL NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	price DECIMAL NOT NULL,
+	description VARCHAR(100) NOT NULL,
+	alcohol_by_volume DECIMAL NOT NULL,
+	type VARCHAR(50) NOT NULL
 );
 
 CREATE UNIQUE INDEX beers_id_uindex

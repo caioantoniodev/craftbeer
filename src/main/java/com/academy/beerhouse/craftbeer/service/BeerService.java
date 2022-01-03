@@ -22,7 +22,7 @@ public class BeerService {
         return beerRepository.findAll();
     }
 
-    public Mono<Beer> findOne(UUID id) {
+    public Mono<Beer> findOne(Integer id) {
         return beerRepository.findById(id)
                 .switchIfEmpty(monoResponseStatusNotFoundException())
                 .log();
@@ -36,5 +36,12 @@ public class BeerService {
         var create = beerRepository.save(beer);
 
         return create;
+    }
+
+    public Mono<Void> updateOne(Beer beer) {
+        return findOne(beer.getId())
+                .map(beerFound -> beer.withId(beerFound.getId()))
+                .flatMap(beerRepository::save)
+                .thenEmpty(Mono.empty());
     }
 }

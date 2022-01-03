@@ -4,8 +4,8 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
     ports:
       - "5432:5432"
     volumes:

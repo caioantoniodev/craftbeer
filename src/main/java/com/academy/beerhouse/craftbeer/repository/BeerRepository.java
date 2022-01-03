@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-public interface BeerRepository extends ReactiveCrudRepository<Beer, UUID> {
-    Mono<Beer> findById(UUID id);
+public interface BeerRepository extends ReactiveCrudRepository<Beer, Integer> {
+    Mono<Beer> findById(Integer id);
 }
