@@ -36,7 +36,7 @@ public class BeerController {
         return beerService.updateOne(beer.withId(id));
     }
 
-    @PostMapping()
+    @PostMapping
     @ResponseStatus(CREATED)
     public Mono<Beer> createOne(@Valid @RequestBody Beer beer) {
         return beerService.createOne(beer);
