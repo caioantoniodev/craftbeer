@@ -37,4 +37,11 @@ public class BeerService {
 
         return create;
     }
+
+    public Mono<Void> updateOne(Beer beer) {
+        return findOne(beer.getId())
+                .map(beerFound -> beer.withId(beerFound.getId()))
+                .flatMap(beerRepository::save)
+                .thenEmpty(Mono.empty());
+    }
 }

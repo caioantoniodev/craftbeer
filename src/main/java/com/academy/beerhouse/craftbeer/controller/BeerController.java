@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,10 +32,15 @@ public class BeerController {
         return beerService.findOne(id);
     }
 
+    @PutMapping
+    @ResponseStatus(NO_CONTENT)
+    public Mono<Void> updateOne(@Valid @RequestBody Beer beer) {
+        return beerService.updateOne(beer);
+    }
+
     @PostMapping
     @ResponseStatus(CREATED)
     public Mono<Beer> createOne(@Valid @RequestBody Beer beer) {
-        var created = beerService.createOne(beer);
-        return created;
+        return beerService.createOne(beer);
     }
 }
