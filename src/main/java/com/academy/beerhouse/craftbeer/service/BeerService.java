@@ -10,8 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -33,15 +31,17 @@ public class BeerService {
     }
 
     public Mono<Beer> createOne(Beer beer) {
-        var create = beerRepository.save(beer);
-
-        return create;
+        return beerRepository.save(beer);
     }
 
     public Mono<Void> updateOne(Beer beer) {
         return findOne(beer.getId())
-                .map(beerFound -> beer.withId(beerFound.getId()))
                 .flatMap(beerRepository::save)
-                .thenEmpty(Mono.empty());
+                .then();
+    }
+
+    public Mono<Void> deleteOne(Integer id) {
+        return findOne(id)
+                .flatMap(beerRepository::delete);
     }
 }
