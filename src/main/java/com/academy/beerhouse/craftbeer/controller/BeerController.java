@@ -4,13 +4,11 @@ import com.academy.beerhouse.craftbeer.domain.Beer;
 import com.academy.beerhouse.craftbeer.service.BeerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
@@ -32,13 +30,13 @@ public class BeerController {
         return beerService.findOne(id);
     }
 
-    @PutMapping
+    @PutMapping(path = "{id}")
     @ResponseStatus(NO_CONTENT)
-    public Mono<Void> updateOne(@Valid @RequestBody Beer beer) {
-        return beerService.updateOne(beer);
+    public Mono<Void> updateOne(@PathVariable Integer id, @Valid @RequestBody Beer beer) {
+        return beerService.updateOne(beer.withId(id));
     }
 
-    @PostMapping
+    @PostMapping()
     @ResponseStatus(CREATED)
     public Mono<Beer> createOne(@Valid @RequestBody Beer beer) {
         return beerService.createOne(beer);
