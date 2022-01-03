@@ -32,6 +32,7 @@ import static reactor.core.scheduler.Schedulers.parallel;
 class BeerServiceTest {
 
     private final Beer beer = BeerCreator.createValidBeer();
+
     @InjectMocks
     private BeerService beerService;
     @Mock
