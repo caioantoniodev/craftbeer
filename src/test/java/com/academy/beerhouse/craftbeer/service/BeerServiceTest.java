@@ -3,7 +3,6 @@ package com.academy.beerhouse.craftbeer.service;
 import com.academy.beerhouse.craftbeer.domain.Beer;
 import com.academy.beerhouse.craftbeer.repository.BeerRepository;
 import com.academy.beerhouse.craftbeer.util.BeerCreator;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,19 +16,19 @@ import reactor.core.scheduler.Schedulers;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static reactor.core.scheduler.Schedulers.*;
 
 @ExtendWith(SpringExtension.class)
 class BeerServiceTest {
 
+    private final Beer beer = BeerCreator.createValidBeer();
     @InjectMocks
     private BeerService beerService;
-
     @Mock
     private BeerRepository beerRepository;
-
-    private final Beer beer = BeerCreator.createValidBeer();
 
     @BeforeAll
     public static void blockHoundSetup() {
@@ -39,17 +38,16 @@ class BeerServiceTest {
     @Test
     public void blockHoundWorks() {
         try {
-            FutureTask<?> task = new FutureTask<>(() -> {
-                Thread.sleep(0);
+            var task = new FutureTask<>(() -> {
+                sleep(0);
                 return "";
             });
-            Schedulers.parallel().schedule(task);
+            parallel().schedule(task);
 
             task.get(10, TimeUnit.SECONDS);
             fail("should fail");
         } catch (Exception e) {
-            assertThat(e.getCause() instanceof BlockingOperationError).isTrue();
+            assertThat(e.getCause()).isInstanceOf(BlockingOperationError.class);
         }
     }
-
 }
