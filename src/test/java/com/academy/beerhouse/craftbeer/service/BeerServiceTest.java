@@ -68,8 +68,6 @@ class BeerServiceTest {
         }
     }
 
-
-
     @Test
     @DisplayName("findAll returns a flux of beer")
     void shouldReturnsFluxOfBeerWhenSuccessfull() {
