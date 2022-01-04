@@ -1,8 +1,9 @@
 package com.academy.beerhouse.craftbeer.service;
 
 import com.academy.beerhouse.craftbeer.domain.Beer;
+import com.academy.beerhouse.craftbeer.mock.BeerMock;
 import com.academy.beerhouse.craftbeer.repository.BeerRepository;
-import com.academy.beerhouse.craftbeer.util.BeerCreator;
+import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,19 +20,17 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
-import static java.lang.Thread.sleep;
+import static com.academy.beerhouse.craftbeer.util.SureMonoIsRunning.blockHoundWorks;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static reactor.core.scheduler.Schedulers.parallel;
 
 @ExtendWith(SpringExtension.class)
 class BeerServiceTest {
 
-    private final Beer beer = BeerCreator.createValidBeer();
+    private final Beer beer = BeerMock.createValidBeer();
 
     @InjectMocks
     private BeerService beerService;
@@ -53,17 +52,12 @@ class BeerServiceTest {
     }
 
     @Test
-    void blockHoundWorks() {
+    void shouldBlockHoundWorks() {
         try {
-            var task = new FutureTask<>(() -> {
-                sleep(0);
-                return "";
-            });
-            parallel().schedule(task);
+            blockHoundWorks();
 
-            task.get(10, TimeUnit.SECONDS);
-            fail("should fail");
-        } catch (Exception e) {
+            Fail.fail("should fail");
+        } catch (ExecutionException | InterruptedException | TimeoutException e) {
             assertThat(e.getCause()).isInstanceOf(BlockingOperationError.class);
         }
     }

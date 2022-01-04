@@ -1,10 +1,10 @@
-package com.academy.beerhouse.craftbeer.util;
+package com.academy.beerhouse.craftbeer.mock;
 
 import com.academy.beerhouse.craftbeer.domain.Beer;
 
 import java.math.BigDecimal;
 
-public class BeerCreator {
+public class BeerMock {
     public static Beer createBeerToBeSaved() {
         return Beer.builder()
                 .name("Beer")
