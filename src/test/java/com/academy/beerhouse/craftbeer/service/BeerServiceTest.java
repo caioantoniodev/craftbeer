@@ -25,6 +25,7 @@ import java.util.concurrent.TimeoutException;
 
 import static com.academy.beerhouse.craftbeer.util.SureBlockHoundIsRunning.blockHoundWorks;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(SpringExtension.class)
@@ -49,9 +50,16 @@ class BeerServiceTest {
 
         BDDMockito.when(beerRepository.findById(anyInt()))
                 .thenReturn(Mono.just(beer));
+
+        BDDMockito.when(beerRepository.save(BeerMock.createBeerToBeSaved()))
+                .thenReturn(Mono.just(beer));
+
+        BDDMockito.when(beerRepository.delete(any(Beer.class)))
+                .thenReturn(Mono.empty());
     }
 
     @Test
+    @DisplayName("verify if the BlockHound is working ")
     void shouldBlockHoundWorks() {
         try {
             blockHoundWorks();
@@ -87,6 +95,37 @@ class BeerServiceTest {
                 .thenReturn(Mono.empty());
 
         StepVerifier.create(beerService.findOne(1))
+                .expectSubscription()
+                .expectError(ResponseStatusException.class)
+                .verify();
+    }
+
+    @Test
+    @DisplayName("createOne creates an beer when successful")
+    void shouldCreateOneBeerWhenSuccessfull() {
+        var beerToBeSaved = BeerMock.createBeerToBeSaved();
+
+        StepVerifier.create(beerService.createOne(beerToBeSaved))
+                .expectSubscription()
+                .expectNext(beer)
+                .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("deleteOne removes the beer when it exists")
+    void shouldDeleteOneBeerWhenSuccessfull() {
+        StepVerifier.create(beerService.deleteOne(1))
+                .expectSubscription()
+                .verifyComplete();
+    }
+
+    @Test
+    @DisplayName("deleteOne returns mono error when beer when not exist")
+    void shouldNotDeleteOneBeerWhenReturnMonoError() {
+        BDDMockito.when(beerRepository.findById(anyInt()))
+                .thenReturn(Mono.empty());
+
+        StepVerifier.create(beerService.deleteOne(1))
                 .expectSubscription()
                 .expectError(ResponseStatusException.class)
                 .verify();
