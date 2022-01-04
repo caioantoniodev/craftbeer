@@ -23,7 +23,7 @@ import reactor.test.StepVerifier;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-import static com.academy.beerhouse.craftbeer.util.SureMonoIsRunning.blockHoundWorks;
+import static com.academy.beerhouse.craftbeer.util.SureBlockHoundIsRunning.blockHoundWorks;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
 

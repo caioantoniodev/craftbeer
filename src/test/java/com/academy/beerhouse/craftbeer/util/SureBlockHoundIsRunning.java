@@ -8,7 +8,7 @@ import java.util.concurrent.TimeoutException;
 import static java.lang.Thread.sleep;
 import static reactor.core.scheduler.Schedulers.parallel;
 
-public class SureMonoIsRunning {
+public class SureBlockHoundIsRunning {
     public static void blockHoundWorks() throws ExecutionException, InterruptedException, TimeoutException {
 
         var task = new FutureTask<>(() -> {
