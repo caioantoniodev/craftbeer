@@ -72,7 +72,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("findAll returns a flux of beer")
-    void shouldReturnsFluxOfBeerWhenSuccessfull() {
+    void shouldReturnsFluxOfBeerWhenSuccessful() {
         StepVerifier.create(beerService.findAll())
                 .expectSubscription()
                 .expectNext(beer)
@@ -81,7 +81,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("findOne returns mono with beer when it exists")
-    void shouldReturnMonoOfBeerWhenSuccessfull() {
+    void shouldReturnMonoOfBeerWhenSuccessful() {
         StepVerifier.create(beerService.findOne(1))
                 .expectSubscription()
                 .expectNext(beer)
@@ -102,7 +102,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("createOne creates an beer when successful")
-    void shouldCreateOneBeerWhenSuccessfull() {
+    void shouldCreateOneBeerWhenSuccessful() {
         var beerToBeSaved = BeerMock.createBeerToBeSaved();
 
         StepVerifier.create(beerService.createOne(beerToBeSaved))
@@ -113,7 +113,7 @@ class BeerServiceTest {
 
     @Test
     @DisplayName("deleteOne removes the beer when it exists")
-    void shouldDeleteOneBeerWhenSuccessfull() {
+    void shouldDeleteOneBeerWhenSuccessful() {
         StepVerifier.create(beerService.deleteOne(1))
                 .expectSubscription()
                 .verifyComplete();
