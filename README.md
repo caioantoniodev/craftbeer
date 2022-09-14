@@ -1,2 +1,2 @@
 # Craftbeer
-API in Spring WebFlux to register craftbeers
+API in Spring WebFlux to register craftbeers 🍺
